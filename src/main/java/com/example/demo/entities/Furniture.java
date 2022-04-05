@@ -10,6 +10,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import com.example.demo.dto.FurnitureType;
 
@@ -51,11 +53,14 @@ public class Furniture {
     private Status deactivationStatus = Status.AVAILABLE;
 
     private BigDecimal price;
+
+    @NotBlank
     private String description;
 
     private double length;
 
     private double width;
+    @NotNull
     private FurnitureType furnitureType;
 
 }

@@ -30,11 +30,14 @@ public class FurnitureController {
 
     @PostMapping("/create-new-furniture")
     public ResponseEntity<Furniture> createNewFurniture(@RequestBody FurnitureDTO furnitureDTO) {
-        if (furnitureDTO.getFurnitureType() == null || furnitureDTO.getDescription() == null) {
-            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+
+        try {
+            Furniture furniture = furnitureService.save(furnitureDTO);
+            return new ResponseEntity<Furniture>(furniture, HttpStatus.CREATED);
+        } catch (RuntimeException ex) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        Furniture furniture = furnitureService.save(furnitureDTO);
-        return new ResponseEntity<Furniture>(furniture, HttpStatus.CREATED);
+
     }
 
     @GetMapping("/get-all-furnitures")
